@@ -52,6 +52,6 @@ services:
       NGROK_HOST: localhost
       NGROK_PORT: 4040
     # ensure curl and jq are available, then run our updater script
-    entrypoint: ["sh", "-c", "apk add --no-cache curl jq >/dev/null 2>&1 || true; /workdir/scripts/ngrok-updater.sh"]
-    restart: "on-failure"
+  entrypoint: ["sh", "-c", "apk add --no-cache curl jq >/dev/null 2>&1 || true; sh /workdir/scripts/ngrok-updater.sh"]
+  restart: "on-failure"
 
