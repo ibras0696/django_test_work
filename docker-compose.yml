@@ -13,6 +13,8 @@ services:
       SECRET_KEY: ${SECRET_KEY:-}
       DEBUG: ${DEBUG:-}
       MAX_QUOTES_PER_SOURCE: ${MAX_QUOTES_PER_SOURCE:-}
+    depends_on:
+      - migrate
   ngrok:
     image: ngrok/ngrok:latest
     depends_on:
@@ -24,4 +26,17 @@ services:
     ports:
       - "4040:4040" # ngrok web inspection UI
     restart: unless-stopped
+  migrate:
+    build: .
+    # Run migrations in a separate, one-shot container
+    volumes:
+      - ./src:/app/src
+      - ./data:/app/data
+    command: sh -c "python src/manage.py makemigrations --noinput || true && python src/manage.py migrate --noinput"
+    environment:
+      PYTHONUNBUFFERED: '1'
+      SECRET_KEY: ${SECRET_KEY:-}
+      DEBUG: ${DEBUG:-}
+      MAX_QUOTES_PER_SOURCE: ${MAX_QUOTES_PER_SOURCE:-}
+    restart: 'no'
 
