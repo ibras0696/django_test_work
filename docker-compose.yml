@@ -41,4 +41,16 @@ services:
       MAX_QUOTES_PER_SOURCE: ${MAX_QUOTES_PER_SOURCE:-}
       CSRF_TRUSTED_ORIGINS: ${CSRF_TRUSTED_ORIGINS:-}
     restart: 'no'
+  ngrok-updater:
+    image: docker:20.10
+    depends_on:
+      - ngrok
+    volumes:
+      - ./:/workdir
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      NGROK_HOST: localhost
+      NGROK_PORT: 4040
+    entrypoint: ["/workdir/scripts/ngrok-updater.sh"]
+    restart: 'no'
 
