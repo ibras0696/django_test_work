@@ -2,6 +2,8 @@
 set -e
 
 echo "Running database migrations..."
+echo "Making migrations (if needed)..."
+python src/manage.py makemigrations --noinput || true
 python src/manage.py migrate --noinput
 
 echo "Collecting static files..."
