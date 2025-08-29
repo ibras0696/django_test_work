@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/app/src
+      - ./data:/app/data
+    entrypoint: ["/app/entrypoint.sh"]
+    environment:
+      PYTHONUNBUFFERED: '1'
+      SECRET_KEY: ${SECRET_KEY:-}
+      DEBUG: ${DEBUG:-}
+      MAX_QUOTES_PER_SOURCE: ${MAX_QUOTES_PER_SOURCE:-}
+  ngrok:
+    image: ngrok/ngrok:latest
+    depends_on:
+      - web
+    # command exposes the web service running in the 'web' container on port 8000
+    command: http --log=stdout --authtoken=${NGROK_AUTHTOKEN:-} web:8000
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN:-}
+    ports:
+      - "4040:4040" # ngrok web inspection UI
+    restart: unless-stopped
+

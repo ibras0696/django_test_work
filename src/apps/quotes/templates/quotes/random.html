@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Random Quote</title>
+  <link rel="stylesheet" href="/static/quotes/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Random Quote</h1>
+    {% if quote %}
+      <div class="quote">
+        <p>{{ quote.text }}</p>
+        <p class="source">— {{ quote.source }}</p>
+        <p class="meta">Views: {{ quote.views }} | Likes: {{ quote.likes }} | Dislikes: {{ quote.dislikes }}</p>
+
+        <div class="actions">
+          <form method="post" action="{% url 'quotes-like' quote.id %}">{% csrf_token %}<button class="" type="submit">Like</button></form>
+          <form method="post" action="{% url 'quotes-dislike' quote.id %}">{% csrf_token %}<button class="secondary" type="submit">Dislike</button></form>
+        </div>
+      </div>
+    {% else %}
+      <div class="quote">
+        <p>No quotes yet.</p>
+      </div>
+    {% endif %}
+
+    <p><a class="secondary" href="{% url 'quotes-top' %}">Top</a> <a class="secondary" href="{% url 'quotes-add' %}">Add</a></p>
+  </div>
+</body>
+</html>

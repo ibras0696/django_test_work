@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Add Quote</title>
+  <link rel="stylesheet" href="/static/quotes/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Add Quote</h1>
+    {% if errors %}
+      <div class="errors">
+        <ul>
+        {% for e in errors %}
+          <li>{{ e }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      <label>Text<br><textarea name="text" rows="4">{{ data.text }}</textarea></label><br>
+      <label>Source<br><input name="source" value="{{ data.source }}"></label><br>
+      <label>Weight<br><input name="weight" value="{{ data.weight }}"></label><br>
+      <button type="submit">Add</button>
+    </form>
+
+    <p><a class="secondary" href="{% url 'quotes-random' %}">Random</a> <a class="secondary" href="{% url 'quotes-top' %}">Top</a></p>
+  </div>
+</body>
+</html>

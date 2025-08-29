@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Top Quotes</title>
+  <link rel="stylesheet" href="/static/quotes/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Top Quotes</h1>
+    {% for q in quotes %}
+      <div class="quote">
+        <p>{{ q.text }}</p>
+        <p class="source">— <strong>{{ q.source }}</strong></p>
+        <p class="meta">Likes: {{ q.likes }} | Views: {{ q.views }}</p>
+      </div>
+    {% empty %}
+      <div class="quote">No quotes yet.</div>
+    {% endfor %}
+
+    <p><a class="secondary" href="{% url 'quotes-random' %}">Random</a> <a class="secondary" href="{% url 'quotes-add' %}">Add</a></p>
+  </div>
+</body>
+</html>

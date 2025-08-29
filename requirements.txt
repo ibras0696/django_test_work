@@ -1,0 +1,5 @@
+Django==4.2.*
+PyYAML>=6.0
+whitenoise>=6.0
+pytest
+pytest-django
