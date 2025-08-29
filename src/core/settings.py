@@ -31,7 +31,21 @@ else:
     ALLOWED_HOSTS = str(_allowed).split(',') if _allowed else []
 
 # Max quotes per source
-MAX_QUOTES_PER_SOURCE = int(_env_or_config('MAX_QUOTES_PER_SOURCE', _config.get('MAX_QUOTES_PER_SOURCE', 3)))
+def _int_or_config(name, default=0):
+    raw = _env_or_config(name, _config.get(name, default))
+    if isinstance(raw, int):
+        return raw
+    if raw is None:
+        return default
+    try:
+        s = str(raw).strip()
+        if s == '':
+            return default
+        return int(s)
+    except (ValueError, TypeError):
+        return default
+
+MAX_QUOTES_PER_SOURCE = _int_or_config('MAX_QUOTES_PER_SOURCE', 3)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
