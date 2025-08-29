@@ -8,4 +8,10 @@ echo "Collecting static files..."
 python src/manage.py collectstatic --noinput
 
 echo "Starting server..."
-exec "$@"
+if [ "$#" -eq 0 ]; then
+	# No command provided by Docker; start the default Django development server
+	echo "No command passed to entrypoint, launching default runserver"
+	exec python src/manage.py runserver 0.0.0.0:8000
+else
+	exec "$@"
+fi
