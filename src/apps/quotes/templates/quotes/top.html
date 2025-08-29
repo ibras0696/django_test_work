@@ -7,18 +7,51 @@
 </head>
 <body>
   <div class="container">
-    <h1>Top Quotes</h1>
-    {% for q in quotes %}
-      <div class="quote">
-        <p>{{ q.text }}</p>
-        <p class="source">— <strong>{{ q.source }}</strong></p>
-        <p class="meta">Likes: {{ q.likes }} | Views: {{ q.views }}</p>
+    <header class="brand">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="5" fill="var(--accent)"/>
+        <path d="M7 12h10M7 8h10M7 16h6" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <h1>Quotes</h1>
+        <p class="muted">Top-rated quotes</p>
       </div>
-    {% empty %}
-      <div class="quote">No quotes yet.</div>
-    {% endfor %}
+    </header>
 
-    <p><a class="secondary" href="{% url 'quotes-random' %}">Random</a> <a class="secondary" href="{% url 'quotes-add' %}">Add</a></p>
+    <div class="layout">
+      <main>
+        <div class="card">
+          <h2 class="muted">Top quotes</h2>
+          {% if quotes %}
+            <ol class="quotes-list">
+              {% for quote in quotes %}
+                <li class="quote-item">
+                  <div class="quote-text">{{ quote.text }}</div>
+                  <div class="quote-meta">— {{ quote.source }} <span class="muted">• Likes {{ quote.likes }} • Views {{ quote.views }}</span></div>
+                </li>
+              {% endfor %}
+            </ol>
+          {% else %}
+            <p>No quotes found.</p>
+          {% endif %}
+          <div class="controls" style="margin-top:1rem">
+            <a class="btn" href="{% url 'quotes-random' %}">Random</a>
+            <a class="btn ghost" href="{% url 'quotes-add' %}">Add</a>
+          </div>
+        </div>
+      </main>
+
+      <aside class="side">
+        <div class="panel">
+          <h4 class="muted">Filter</h4>
+          <p class="muted" style="margin-top:.5rem">Sorted by likes, then views.</p>
+        </div>
+      </aside>
+    </div>
+
+    <div class="footer">A tiny quotes demo — responsive and clean</div>
+
+  <p style="margin-top:1rem"><a class="btn ghost" href="{% url 'quotes-random' %}">Random</a> <a class="btn ghost" href="{% url 'quotes-add' %}">Add</a></p>
   </div>
 </body>
 </html>

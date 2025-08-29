@@ -16,6 +16,7 @@ services:
       CSRF_TRUSTED_ORIGINS: ${CSRF_TRUSTED_ORIGINS:-}
     depends_on:
       - migrate
+
   ngrok:
     image: ngrok/ngrok:latest
     depends_on:
@@ -27,6 +28,7 @@ services:
     ports:
       - "4040:4040" # ngrok web inspection UI
     restart: unless-stopped
+
   migrate:
     build: .
     # Run migrations in a separate, one-shot container
@@ -40,7 +42,8 @@ services:
       DEBUG: ${DEBUG:-}
       MAX_QUOTES_PER_SOURCE: ${MAX_QUOTES_PER_SOURCE:-}
       CSRF_TRUSTED_ORIGINS: ${CSRF_TRUSTED_ORIGINS:-}
-    restart: 'no'
+    restart: "no"
+
   ngrok-updater:
     image: docker:20.10
     depends_on:
@@ -52,6 +55,5 @@ services:
       NGROK_HOST: localhost
       NGROK_PORT: 4040
     # ensure curl and jq are available, then run our updater script
-  entrypoint: ["sh", "-c", "apk add --no-cache curl jq >/dev/null 2>&1 || true; sh /workdir/scripts/ngrok-updater.sh"]
-  restart: "on-failure"
-
+    entrypoint: ["sh", "-c", "apk add --no-cache curl jq >/dev/null 2>&1 || true; sh /workdir/scripts/ngrok-updater.sh"]
+    restart: "on-failure"

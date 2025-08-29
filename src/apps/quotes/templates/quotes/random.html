@@ -7,25 +7,52 @@
 </head>
 <body>
   <div class="container">
-    <h1>Random Quote</h1>
-    {% if quote %}
-      <div class="quote">
-        <p>{{ quote.text }}</p>
-        <p class="source">— {{ quote.source }}</p>
-        <p class="meta">Views: {{ quote.views }} | Likes: {{ quote.likes }} | Dislikes: {{ quote.dislikes }}</p>
+    <header class="brand">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="5" fill="var(--accent)"/>
+        <path d="M7 12h10M7 8h10M7 16h6" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <h1>Quotes</h1>
+        <p class="muted">Random, top and add — beautifully presented</p>
+      </div>
+    </header>
 
-        <div class="actions">
-          <form method="post" action="{% url 'quotes-like' quote.id %}">{% csrf_token %}<button class="" type="submit">Like</button></form>
-          <form method="post" action="{% url 'quotes-dislike' quote.id %}">{% csrf_token %}<button class="secondary" type="submit">Dislike</button></form>
+    <div class="layout">
+      <main>
+        <div class="card">
+          <h2 class="muted">Random quote</h2>
+          {% if quote %}
+            <div class="quote">
+              <p>{{ quote.text }}</p>
+              <p class="source">— {{ quote.source }}</p>
+              <p class="meta">Views: {{ quote.views }} &middot; Likes: {{ quote.likes }} &middot; Dislikes: {{ quote.dislikes }}</p>
+
+              <div class="controls">
+                <form method="post" action="{% url 'quotes-like' quote.id %}">{% csrf_token %}<button class="btn" type="submit">Like</button></form>
+                <form method="post" action="{% url 'quotes-dislike' quote.id %}">{% csrf_token %}<button class="btn ghost" type="submit">Dislike</button></form>
+                <a class="btn small ghost" href="{% url 'quotes-add' %}">Add</a>
+              </div>
+            </div>
+          {% else %}
+            <div class="quote">No quotes yet.</div>
+          {% endif %}
         </div>
-      </div>
-    {% else %}
-      <div class="quote">
-        <p>No quotes yet.</p>
-      </div>
-    {% endif %}
+      </main>
 
-    <p><a class="secondary" href="{% url 'quotes-top' %}">Top</a> <a class="secondary" href="{% url 'quotes-add' %}">Add</a></p>
+      <aside class="side">
+        <div class="panel">
+          <h4 class="muted">Quick Links</h4>
+          <div style="margin-top:.5rem"><a class="btn ghost" href="{% url 'quotes-top' %}">Top quotes</a></div>
+        </div>
+        <div class="panel">
+          <h4 class="muted">About</h4>
+          <p class="muted" style="margin:0.5rem 0 0;">Small demo app — lightweight and easy to run.</p>
+        </div>
+      </aside>
+    </div>
+
+    <div class="footer">Powered by your awesome demo • small and fast</div>
   </div>
 </body>
 </html>
