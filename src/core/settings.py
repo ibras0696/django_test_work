@@ -30,6 +30,16 @@ if isinstance(_allowed, (list, tuple)):
 else:
     ALLOWED_HOSTS = str(_allowed).split(',') if _allowed else []
 
+# CSRF trusted origins (CSV or YAML list). Example: CSRF_TRUSTED_ORIGINS=https://abc.ngrok-free.app
+_csrf_raw = _env_or_config('CSRF_TRUSTED_ORIGINS', _config.get('CSRF_TRUSTED_ORIGINS', []))
+if isinstance(_csrf_raw, (list, tuple)):
+    CSRF_TRUSTED_ORIGINS = list(_csrf_raw)
+else:
+    if _csrf_raw:
+        CSRF_TRUSTED_ORIGINS = [s.strip() for s in str(_csrf_raw).split(',') if s.strip()]
+    else:
+        CSRF_TRUSTED_ORIGINS = []
+
 # Max quotes per source
 def _int_or_config(name, default=0):
     raw = _env_or_config(name, _config.get(name, default))
