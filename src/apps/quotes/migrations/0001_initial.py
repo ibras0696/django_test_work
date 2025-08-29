@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'indexes': [django.db.models.expressions.F('likes').desc()],
+                'indexes': [models.Index(fields=['likes'], name='likes_desc')],
             },
         ),
         migrations.AddConstraint(
