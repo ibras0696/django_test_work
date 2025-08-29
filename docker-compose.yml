@@ -13,6 +13,7 @@ services:
       SECRET_KEY: ${SECRET_KEY:-}
       DEBUG: ${DEBUG:-}
       MAX_QUOTES_PER_SOURCE: ${MAX_QUOTES_PER_SOURCE:-}
+      CSRF_TRUSTED_ORIGINS: ${CSRF_TRUSTED_ORIGINS:-}
     depends_on:
       - migrate
   ngrok:
@@ -38,5 +39,6 @@ services:
       SECRET_KEY: ${SECRET_KEY:-}
       DEBUG: ${DEBUG:-}
       MAX_QUOTES_PER_SOURCE: ${MAX_QUOTES_PER_SOURCE:-}
+      CSRF_TRUSTED_ORIGINS: ${CSRF_TRUSTED_ORIGINS:-}
     restart: 'no'
 
