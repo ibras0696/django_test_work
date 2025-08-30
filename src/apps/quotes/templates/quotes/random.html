@@ -10,28 +10,28 @@
     <header class="brand">
       <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect x="2" y="2" width="20" height="20" rx="5" fill="var(--accent)"/>
-        <path d="M7 12h10M7 8h10M7 16h6" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M7 12h10M7 8h10M7 16h6" stroke="#02111a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <div>
-        <h1>Quotes</h1>
-        <p class="muted">Random, top and add — beautifully presented</p>
+        <h1 class="neon">Цитатник</h1>
+        <p class="muted">Случайная цитата · Топ · Добавить</p>
       </div>
     </header>
 
     <div class="layout">
       <main>
         <div class="card">
-          <h2 class="muted">Random quote</h2>
+          <h2 class="muted">Случайная цитата</h2>
           {% if quote %}
             <div class="quote">
               <p>{{ quote.text }}</p>
               <p class="source">— {{ quote.source }}</p>
-              <p class="meta">Views: {{ quote.views }} &middot; Likes: {{ quote.likes }} &middot; Dislikes: {{ quote.dislikes }}</p>
+              <p class="meta">Просмотров: {{ quote.views }} · Лайков: {{ quote.likes }} · Дизлайков: {{ quote.dislikes }}</p>
 
               <div class="controls">
-                <form method="post" action="{% url 'quotes-like' quote.id %}">{% csrf_token %}<button class="btn" type="submit">Like</button></form>
-                <form method="post" action="{% url 'quotes-dislike' quote.id %}">{% csrf_token %}<button class="btn ghost" type="submit">Dislike</button></form>
-                <a class="btn small ghost" href="{% url 'quotes-add' %}">Add</a>
+                <form method="post" action="{% url 'quotes-like' quote.id %}"><button class="btn" type="submit">Лайк</button></form>
+                <form method="post" action="{% url 'quotes-dislike' quote.id %}"><button class="btn ghost" type="submit">Дизлайк</button></form>
+                <a class="btn small ghost" href="{% url 'quotes-add' %}">Добавить</a>
               </div>
             </div>
           {% else %}
@@ -42,8 +42,8 @@
 
       <aside class="side">
         <div class="panel">
-          <h4 class="muted">Quick Links</h4>
-          <div style="margin-top:.5rem"><a class="btn ghost" href="{% url 'quotes-top' %}">Top quotes</a></div>
+          <h4 class="muted">Быстрые ссылки</h4>
+          <div style="margin-top:.5rem"><a class="btn ghost" href="{% url 'quotes-top' %}">Топ цитат</a></div>
         </div>
         <div class="panel">
           <h4 class="muted">About</h4>

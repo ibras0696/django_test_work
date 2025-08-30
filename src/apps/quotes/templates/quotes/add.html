@@ -10,11 +10,11 @@
     <header class="brand">
       <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect x="2" y="2" width="20" height="20" rx="5" fill="var(--accent)"/>
-        <path d="M7 12h10M7 8h10M7 16h6" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M7 12h10M7 8h10M7 16h6" stroke="#02111a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <div>
-        <h1>Add Quote</h1>
-        <p class="muted">Share something memorable</p>
+        <h1 class="neon">Добавить цитату</h1>
+        <p class="muted">Поделитесь запоминающейся фразой</p>
       </div>
     </header>
 
@@ -33,21 +33,21 @@
 
           <form method="post" class="form-stack">
             {% csrf_token %}
-            <label>Text
+            <label>Текст
               <textarea name="text" rows="4">{{ data.text }}</textarea>
             </label>
 
-            <label>Source
+            <label>Источник
               <input name="source" value="{{ data.source }}">
             </label>
 
-            <label>Weight
+            <label>Вес (приоритет)
               <input name="weight" value="{{ data.weight }}">
             </label>
 
             <div class="controls">
-              <button class="btn" type="submit">Add</button>
-              <a class="btn ghost" href="{% url 'quotes-random' %}">Cancel</a>
+              <button class="btn" type="submit">Добавить</button>
+              <a class="btn ghost" href="{% url 'quotes-random' %}">Отмена</a>
             </div>
           </form>
         </div>

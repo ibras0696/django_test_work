@@ -10,24 +10,24 @@
     <header class="brand">
       <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect x="2" y="2" width="20" height="20" rx="5" fill="var(--accent)"/>
-        <path d="M7 12h10M7 8h10M7 16h6" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M7 12h10M7 8h10M7 16h6" stroke="#02111a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <div>
-        <h1>Quotes</h1>
-        <p class="muted">Top-rated quotes</p>
+        <h1 class="neon">Цитатник</h1>
+        <p class="muted">Топ цитат</p>
       </div>
     </header>
 
     <div class="layout">
       <main>
         <div class="card">
-          <h2 class="muted">Top quotes</h2>
+          <h2 class="muted">Топ цитат</h2>
           {% if quotes %}
             <ol class="quotes-list">
               {% for quote in quotes %}
                 <li class="quote-item">
                   <div class="quote-text">{{ quote.text }}</div>
-                  <div class="quote-meta">— {{ quote.source }} <span class="muted">• Likes {{ quote.likes }} • Views {{ quote.views }}</span></div>
+                  <div class="quote-meta">— {{ quote.source }} <span class="muted">• Лайки {{ quote.likes }} • Просмотры {{ quote.views }}</span></div>
                 </li>
               {% endfor %}
             </ol>
@@ -35,8 +35,8 @@
             <p>No quotes found.</p>
           {% endif %}
           <div class="controls" style="margin-top:1rem">
-            <a class="btn" href="{% url 'quotes-random' %}">Random</a>
-            <a class="btn ghost" href="{% url 'quotes-add' %}">Add</a>
+            <a class="btn" href="{% url 'quotes-random' %}">Случайная</a>
+            <a class="btn ghost" href="{% url 'quotes-add' %}">Добавить</a>
           </div>
         </div>
       </main>

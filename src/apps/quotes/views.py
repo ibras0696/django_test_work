@@ -36,16 +36,16 @@ def add_view(request):
         data['weight'] = request.POST.get('weight', '1.0').strip()
 
         if not data['text']:
-            errors.append('Text is required')
+            errors.append('Требуется текст')
         if not data['source']:
-            errors.append('Source is required')
+            errors.append('Требуется источник')
 
         try:
             weight_val = float(data['weight'])
             if weight_val <= 0:
-                errors.append('Weight must be positive')
+                errors.append('Вес должен быть положительным')
         except ValueError:
-            errors.append('Weight must be a number')
+            errors.append('Вес должен быть числом')
 
         if not errors:
             try:
