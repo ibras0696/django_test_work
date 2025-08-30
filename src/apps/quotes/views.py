@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 from .services import QuoteService
 from .exceptions import DuplicateQuoteError, SourceLimitError
@@ -25,6 +26,7 @@ def top_view(request):
     return render(request, 'quotes/top.html', {'quotes': top})
 
 
+@csrf_exempt  # TEMP: disable CSRF for this view while demoing via ngrok; remove for production
 def add_view(request):
     errors = []
     data = {'text': '', 'source': '', 'weight': '1.0'}
@@ -57,12 +59,14 @@ def add_view(request):
     return render(request, 'quotes/add.html', {'errors': errors, 'data': data})
 
 
+@csrf_exempt  # TEMP: allow likes from public demo
 def like(request, quote_id):
     if request.method == 'POST':
         QuoteService.like(quote_id)
     return redirect(request.META.get('HTTP_REFERER', reverse('quotes-random')))
 
 
+@csrf_exempt  # TEMP: allow dislikes from public demo
 def dislike(request, quote_id):
     if request.method == 'POST':
         QuoteService.dislike(quote_id)

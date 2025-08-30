@@ -1,6 +1,15 @@
 #!/bin/sh
 set -e
 
+if [ -f /app/.env ]; then
+	echo "Loading environment variables from /app/.env"
+	# export all variables defined in the file for child processes
+	set -a
+	# shellcheck disable=SC1091
+	. /app/.env
+	set +a
+fi
+
 echo "Running database migrations..."
 echo "Making migrations (if needed)..."
 python src/manage.py makemigrations --noinput || true
